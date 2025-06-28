@@ -59,7 +59,7 @@ task.spawn(function()
 		if firstRun then
 			firstRun = false
 			pcall(function()
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/No-Laggs/tanginangchatgpt/refs/heads/main/amboboniyasobra"))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/No-Laggs/duppe/refs/heads/main/Limithub_lua."))()
 			end)
 		end
 
