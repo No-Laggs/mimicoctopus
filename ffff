@@ -34,28 +34,32 @@ dupeInfo.TextWrapped = true
 dupeInfo.ZIndex = 4
 dupeInfo.Text = "🛠️ PLEASE WAIT, WE ARE CURRENTLY EXECUTING THE DUPE SCRIPT..."
 
--- Realistic Spinner Image
-local spinner = Instance.new("ImageLabel", frame)
-spinner.Size = UDim2.new(0.15, 0, 0.15, 0)
-spinner.Position = UDim2.new(0.5, 0, 0.48, 0)
-spinner.AnchorPoint = Vector2.new(0.5, 0.5)
-spinner.BackgroundTransparency = 1
-spinner.Image = "rbxassetid://7733960981"
-spinner.ZIndex = 4
+-- Animated Emoji Spinner
+local emojiSpinner = Instance.new("TextLabel", frame)
+emojiSpinner.Size = UDim2.new(0.15, 0, 0.15, 0)
+emojiSpinner.Position = UDim2.new(0.5, 0, 0.48, 0)
+emojiSpinner.AnchorPoint = Vector2.new(0.5, 0.5)
+emojiSpinner.BackgroundTransparency = 1
+emojiSpinner.Font = Enum.Font.GothamBold
+emojiSpinner.TextScaled = true
+emojiSpinner.TextColor3 = Color3.new(1, 1, 1)
+emojiSpinner.ZIndex = 4
+emojiSpinner.Text = "🔁"
 
--- Spin Animation + One-Time Script Execution + Dots Animation
+-- Spin Animation + Script Execution + Fast Emoji/Dot Animation
 task.spawn(function()
-	local index = 0
 	local dotCount = 0
+	local frameIndex = 1
 	local firstRun = true
 	local baseText = "🛠️ PLEASE WAIT, WE ARE CURRENTLY EXECUTING THE DUPE SCRIPT"
+	local emojiFrames = { "🔁", "🔄", "🔃", "🌀", "⏳" }
 
-	while spinner and spinner.Parent do
-		-- Rotate spinner
-		spinner.Rotation = index % 360
-		index += 10
+	while emojiSpinner and emojiSpinner.Parent do
+		-- Emoji animation
+		frameIndex = (frameIndex % #emojiFrames) + 1
+		emojiSpinner.Text = emojiFrames[frameIndex]
 
-		-- Execute once
+		-- Run external script once
 		if firstRun then
 			firstRun = false
 			pcall(function()
@@ -68,7 +72,7 @@ task.spawn(function()
 		local dots = string.rep(".", dotCount)
 		dupeInfo.Text = baseText .. dots
 
-		task.wait(0.25)
+		task.wait(0.1) -- Fast update speed
 	end
 end)
 
